@@ -18,7 +18,7 @@ resource "aws_iam_instance_profile" "mms_app" {
 }
 
 resource "aws_launch_template" "mms_app" {
-  name = "application_tier"
+  name = "mss-launch-template-app"
 
   block_device_mappings {
     device_name = "/dev/xvda"
@@ -29,7 +29,7 @@ resource "aws_launch_template" "mms_app" {
   }
 
   iam_instance_profile {
-    name = aws_iam_instance_profile.mms_app.name
+    arn = aws_iam_instance_profile.mms_app.arn
   }
 
   instance_type = "t2.nano"
@@ -41,5 +41,5 @@ resource "aws_launch_template" "mms_app" {
   }
 
   # todo: add user data to pull ecr, run task
-  user_data = base64encode(templatefile("./../user-data/script.sh", {}))
+  user_data = base64encode(templatefile("${path.module}/user-data/mss_app.sh", {}))
 }
