@@ -1,14 +1,45 @@
-resource "aws_instance" "mentor-management-system" {
-  # https://aws.amazon.com/amazon-linux-ami/
-  ami           = "ami-08569b978cc4dfa10"
-  instance_type = "t2.micro"
-  # todo: add proper ec2 value
-#  network_interface {
-#    network_interface_id = aws_network_interface.foo.id
-#    device_index         = 0
-#  }
-#
-#  credit_specification {
-#    cpu_credits = "unlimited"
-#  }
+# Retrieve the newest linux 2 HVM AMI
+data "aws_ami" "amazon_linux_2" {
+  most_recent = true
+  owners = ["amazon"]
+  filter {
+    name   = "owner-alias"
+    values = ["amazon"]
+  }
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm*"]
+  }
+}
+
+resource "aws_iam_instance_profile" "mms_app" {
+  name = "mms-app-instance-profile"
+  role = aws_iam_role.mms_app.name
+}
+
+resource "aws_launch_template" "mms_app" {
+  name = "application_tier"
+
+  block_device_mappings {
+    device_name = "/dev/xvda"
+
+    ebs {
+      volume_size = 8
+    }
+  }
+
+  iam_instance_profile {
+    name = aws_iam_instance_profile.mms_app.name
+  }
+
+  instance_type = "t2.nano"
+  image_id      = data.aws_ami.amazon_linux_2.id
+
+  network_interfaces {
+    associate_public_ip_address = false
+    security_groups             = [aws_security_group.mms_app.id]
+  }
+
+  # todo: add user data to pull ecr, run task
+  user_data = base64encode(templatefile("./../user-data/script.sh", {}))
 }

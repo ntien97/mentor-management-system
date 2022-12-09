@@ -5,6 +5,12 @@ terraform {
       version = "~> 4.0"
     }
   }
+
+  backend "s3" {
+    bucket = "mentor-management-system-tfstate"
+    key    = "mentor-management-system/terraform.tfstate"
+    region = "ap-southeast-1"
+  }
 }
 
 provider "aws" {
@@ -20,7 +26,9 @@ module "network" {
 }
 
 module "application" {
-  source = "./application"
+  source     = "./application"
+  vpc_id     = module.network.vpc_id
+  subnet_ids = module.network.private_subnets
 }
 
 module "datastore" {
