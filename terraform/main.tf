@@ -7,12 +7,22 @@ terraform {
   }
 }
 
-# Configure the AWS Provider
 provider "aws" {
   region = "ap-southeast-1"
 }
 
-# Create a VPC
-resource "aws_vpc" "vpc" {
-  cidr_block = "10.0.0.0/16"
+module "presentation" {
+  source = "./presentation"
+}
+
+module "network" {
+  source = "./network"
+}
+
+module "application" {
+  source = "./application"
+}
+
+module "datastore" {
+  source = "./datastore"
 }
