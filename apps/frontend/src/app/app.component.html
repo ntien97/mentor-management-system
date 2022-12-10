@@ -1,4 +1,6 @@
-<mentor-management-system-header></mentor-management-system-header>
+<mentor-management-system-header
+  *ngIf="isNotLogin"
+></mentor-management-system-header>
 <tui-root>
   <router-outlet></router-outlet>
 </tui-root>
