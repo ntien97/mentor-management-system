@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@mentor-management-system/auth": ["libs/auth/src/index.ts"],
       "@mentor-management-system/data-access": [
         "libs/data-access/src/index.ts"
       ],

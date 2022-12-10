@@ -1,0 +1,40 @@
+<div class="tui-container">
+  <tui-island size="m" textAlign="center">
+    <div class="tui-island__content form">
+      <figure class="tui-island__figure">
+        <div class="some-figure"></div>
+      </figure>
+      <div>
+        <h3 class="tui-island__title">Please login!!!</h3>
+
+        <form [formGroup]="loginForm" class="tui-form">
+          <div class="tui-form__row">
+            <tui-input formControlName="email">
+              Email
+              <input tuiTextfield type="email" />
+            </tui-input>
+          </div>
+
+          <div class="tui-form__row">
+            <tui-input-password formControlName="password">
+              Password
+              <input placeholder="Password" tuiTextfield />
+            </tui-input-password>
+          </div>
+        </form>
+
+        <button
+          [disabled]="!loginForm.valid"
+          appearance="flat"
+          class="tui-island__footer-button"
+          size="m"
+          tuiButton
+          type="button"
+          (click)="login()"
+        >
+          Login
+        </button>
+      </div>
+    </div>
+  </tui-island>
+</div>
