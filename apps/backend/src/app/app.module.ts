@@ -2,7 +2,11 @@ import { Module } from '@nestjs/common';
 
 import { User, UserModule } from './user';
 import { AuthModule } from './auth';
-import { MentorController, AuthController } from './controllers';
+import {
+  AuthController,
+  MentorController,
+  StudentController,
+} from './controllers';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
@@ -11,6 +15,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     AuthModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
+      // todo: move host + password to env
       host: 'localhost',
       port: 5432,
       username: 'root',
@@ -20,6 +25,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: true,
     }),
   ],
-  controllers: [MentorController, AuthController],
+  controllers: [MentorController, StudentController, AuthController],
 })
 export class AppModule {}
