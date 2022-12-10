@@ -19,6 +19,7 @@ provider "aws" {
 
 module "presentation" {
   source = "./presentation"
+  mss_app_alb_domain_name = module.application.application_lb_domain_name
 }
 
 module "network" {
