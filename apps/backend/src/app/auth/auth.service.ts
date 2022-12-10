@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from '../user/user.service';
+import { UserService } from '../user';
 import { User } from '@mentor-management-system/util';
 
 @Injectable()
