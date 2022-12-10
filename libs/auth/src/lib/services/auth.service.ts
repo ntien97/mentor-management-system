@@ -38,7 +38,7 @@ export class AuthService {
       AuthService.USER_METADATA,
       JSON.stringify({ name: 'Tien', id: 'OMG' })
     );
-    return of({ user: { name: 'Tien', id: 'OMG' }, token: 'TOKEN' });
+    return of({ user: { name: 'Tien', email: 'OMG' }, token: 'TOKEN' });
   }
 
   logout() {
