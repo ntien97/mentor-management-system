@@ -4,15 +4,20 @@ import { UserModule } from '../user';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './stategies';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstant } from './jwt-constant';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule,
     UserModule,
     PassportModule,
-    JwtModule.register({
-      secret: jwtConstant.secret,
-      signOptions: { expiresIn: '12h' },
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+        signOptions: { expiresIn: configService.get<string>('JWT_EXPIRES_IN') },
+      }),
     }),
   ],
   providers: [AuthService, JwtStrategy],

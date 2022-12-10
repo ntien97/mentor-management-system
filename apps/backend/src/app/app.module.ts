@@ -8,21 +8,26 @@ import {
   StudentController,
 } from './controllers';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     UserModule,
     AuthModule,
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      // todo: move host + password to env
-      host: 'localhost',
-      port: 5432,
-      username: 'root',
-      password: 'root',
-      database: 'mms',
-      entities: [User],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get<string>('POSTGRES_HOST'),
+        port: configService.get<number>('POSTGRES_PORT'),
+        username: configService.get<string>('POSTGRES_USERNAME'),
+        password: configService.get<string>('POSTGRES_PASSWORD'),
+        database: 'mms',
+        entities: [User],
+        synchronize: true,
+      }),
     }),
   ],
   controllers: [MentorController, StudentController, AuthController],
