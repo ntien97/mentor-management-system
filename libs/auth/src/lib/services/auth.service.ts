@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { LoginPayload, User } from '@mentor-management-system/util';
 import { Router } from '@angular/router';
 
@@ -30,15 +30,10 @@ export class AuthService {
 
   login(payload: LoginPayload): Observable<{ user: User; token: string }> {
     console.log(payload);
-    // return this.http.post("/api/auth/login", payload);
 
-    //todo: check this
-    localStorage.setItem(AuthService.TOKEN, 'TOKEN');
-    localStorage.setItem(
-      AuthService.USER_METADATA,
-      JSON.stringify({ name: 'Tien', id: 'OMG' })
-    );
-    return of({ user: { name: 'Tien', email: 'OMG' }, token: 'TOKEN' });
+    return this.http
+      .post<{ user: User; token: string }>('auth/login', payload)
+      .pipe(tap(this.saveData));
   }
 
   logout() {
@@ -47,8 +42,16 @@ export class AuthService {
     return of(true);
   }
 
-  private clearData() {
+  private saveData = (payload: { user: User; token: string }) => {
+    localStorage.setItem(AuthService.TOKEN, payload.token);
+    localStorage.setItem(
+      AuthService.USER_METADATA,
+      JSON.stringify(payload.user)
+    );
+  };
+
+  private clearData = () => {
     localStorage.removeItem(AuthService.TOKEN);
     localStorage.removeItem(AuthService.USER_METADATA);
-  }
+  };
 }
