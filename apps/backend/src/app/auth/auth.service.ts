@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from '../user';
-import { User } from '@mentor-management-system/util';
+import { User, UserService } from '../user';
 import { JwtService } from '@nestjs/jwt';
+import { LoginDto } from './dto';
 
 @Injectable()
 export class AuthService {
@@ -10,18 +10,24 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-  async validateUser(username: string, pass: string): Promise<User> {
-    const user = await this.userService.findOne(username);
-    if (user && 'tien' === pass) {
-      return user;
+  async validateUser(
+    email: string,
+    password: string
+  ): Promise<Omit<User, 'passwordHash'>> {
+    const user = await this.userService.findOne(email);
+    // todo: add the hash function here
+    const hashedPassword = password;
+    if (user && hashedPassword === user.passwordHash) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { passwordHash, ...result } = user;
+      return result;
     }
     return null;
   }
 
-  async login(user: any) {
-    const payload = { username: user.username, sub: user.userId };
+  async login(user: LoginDto) {
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(user),
     };
   }
 }

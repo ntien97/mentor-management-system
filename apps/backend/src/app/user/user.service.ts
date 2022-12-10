@@ -1,17 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '@mentor-management-system/util';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from './user.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
-  // todo: move to DB, remove password
-  private readonly users: User[] = [
-    {
-      email: 'nghuuanhtien@gmail.com',
-      name: 'tien',
-    },
-  ];
+  constructor(
+    @InjectRepository(User)
+    private usersRepository: Repository<User>
+  ) {}
 
-  async findOne(email: string): Promise<User | undefined> {
-    return this.users.find((user) => user.email === email);
+  findAll(): Promise<User[]> {
+    return this.usersRepository.find();
+  }
+
+  findOne(email: string): Promise<User> {
+    return this.usersRepository.findOneBy({ email });
+  }
+
+  async remove(id: string): Promise<void> {
+    await this.usersRepository.delete(id);
   }
 }
