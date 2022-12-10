@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 
 import { User, UserModule } from './user';
 import { AuthModule } from './auth';
-import { AppController, AuthController } from './controllers';
+import { MentorController, AuthController } from './controllers';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
@@ -20,6 +20,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: true,
     }),
   ],
-  controllers: [AppController, AuthController],
+  controllers: [MentorController, AuthController],
 })
 export class AppModule {}

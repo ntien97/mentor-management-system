@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { User, UserService } from '../user';
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from './dto';
@@ -10,7 +10,16 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-  async validateUser(
+  async login(payload: LoginDto) {
+    const user = await this.validateUser(payload.email, payload.password);
+
+    return {
+      token: this.jwtService.sign(user),
+      user,
+    };
+  }
+
+  private async validateUser(
     email: string,
     password: string
   ): Promise<Omit<User, 'passwordHash'>> {
@@ -22,12 +31,7 @@ export class AuthService {
       const { passwordHash, ...result } = user;
       return result;
     }
-    return null;
-  }
 
-  async login(user: LoginDto) {
-    return {
-      access_token: this.jwtService.sign(user),
-    };
+    throw new UnauthorizedException();
   }
 }

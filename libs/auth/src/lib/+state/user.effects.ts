@@ -18,7 +18,7 @@ export class UserEffects implements OnInitEffects {
           // Your custom service 'load' logic goes here. For now just return a success action...
           return this.authService.login(payload).pipe(
             map(({ user, token }) => {
-              this.router.navigate([returnUrl || '']);
+              this.router.navigate([returnUrl || '/']);
               return UserActions.loadUserSuccess({ user, token });
             })
           );

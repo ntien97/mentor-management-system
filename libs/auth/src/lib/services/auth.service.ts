@@ -32,7 +32,7 @@ export class AuthService {
     console.log(payload);
 
     return this.http
-      .post<{ user: User; token: string }>('auth/login', payload)
+      .post<{ user: User; token: string }>('api/auth/login', payload)
       .pipe(tap(this.saveData));
   }
 
