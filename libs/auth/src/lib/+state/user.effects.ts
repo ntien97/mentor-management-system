@@ -4,8 +4,9 @@ import { fetch } from '@nrwl/angular';
 
 import * as UserActions from './user.actions';
 import { AuthService } from '../services/auth.service';
-import { map } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 import { Action } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UserEffects implements OnInitEffects {
@@ -13,15 +14,14 @@ export class UserEffects implements OnInitEffects {
     this.actions$.pipe(
       ofType(UserActions.login),
       fetch({
-        run: (loginPayload) => {
+        run: ({ payload, returnUrl }) => {
           // Your custom service 'load' logic goes here. For now just return a success action...
-          return this.authService
-            .login(loginPayload)
-            .pipe(
-              map(({ user, token }) =>
-                UserActions.loadUserSuccess({ user, token })
-              )
-            );
+          return this.authService.login(payload).pipe(
+            map(({ user, token }) => {
+              this.router.navigate([returnUrl || '']);
+              return UserActions.loadUserSuccess({ user, token });
+            })
+          );
         },
         onError: (action, error) => {
           console.error('Error', error);
@@ -47,9 +47,21 @@ export class UserEffects implements OnInitEffects {
     )
   );
 
+  logout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(UserActions.logout),
+        switchMap(() => this.authService.logout()),
+        map((loggedOut) => loggedOut && this.router.navigate(['/login']))
+      ),
+    // todo: remove after calling logout api
+    { dispatch: false }
+  );
+
   constructor(
     private readonly actions$: Actions,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly router: Router
   ) {}
 
   ngrxOnInitEffects(): Action {

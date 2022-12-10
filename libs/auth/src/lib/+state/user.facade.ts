@@ -12,7 +12,11 @@ export class UserFacade {
 
   isLogin$ = this.store.pipe(select(UserSelectors.selectLoginState));
 
-  login(payload: { email: string; password: string }) {
-    this.store.dispatch(UserActions.login(payload));
+  login(payload: { email: string; password: string }, returnUrl?: string) {
+    this.store.dispatch(UserActions.login({ payload, returnUrl }));
+  }
+
+  logout() {
+    this.store.dispatch(UserActions.logout());
   }
 }

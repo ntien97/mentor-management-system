@@ -14,6 +14,7 @@ import { userFeature } from './+state/user.reducer';
 import { UserEffects } from './+state/user.effects';
 import { UserFacade } from './+state/user.facade';
 import { IsLoggedInGuard } from './guards/is-logged-in.guard';
+import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
 
 @NgModule({
   imports: [
@@ -26,8 +27,8 @@ import { IsLoggedInGuard } from './guards/is-logged-in.guard';
     StoreModule.forFeature(userFeature),
     EffectsModule.forFeature([UserEffects]),
   ],
-  declarations: [LoginComponent],
-  exports: [LoginComponent],
+  declarations: [LoginComponent, LogoutButtonComponent],
+  exports: [LoginComponent, LogoutButtonComponent],
   providers: [UserFacade, IsLoggedInGuard],
 })
 export class AuthModule {}

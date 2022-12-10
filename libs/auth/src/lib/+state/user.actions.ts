@@ -12,4 +12,8 @@ export const loadUserFailure = createAction(
   props<{ error: Error }>()
 );
 
-export const login = createAction('[User Page] Login', props<LoginPayload>());
+export const login = createAction(
+  '[User Page] Login',
+  props<{ payload: LoginPayload; returnUrl?: string }>()
+);
+export const logout = createAction('[User Page] Logout');

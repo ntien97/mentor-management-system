@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserFacade } from '../../+state/user.facade';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'mentor-management-system-login',
@@ -13,7 +14,16 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private readonly userFacade: UserFacade) {}
+  constructor(
+    private readonly userFacade: UserFacade,
+    private readonly activatedRoute: ActivatedRoute
+  ) {}
+
+  get returnUrl(): string {
+    const { returnUrl } = this.activatedRoute.snapshot.queryParams;
+
+    return returnUrl || '';
+  }
 
   login() {
     // todo: consider this form value
