@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { DataAccessModule } from '@mentor-management-system/data-access';
 import { HttpClientModule } from '@angular/common/http';
+import { FeatureModule } from '@mentor-management-system/feature';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -27,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     TuiAlertModule,
     TuiButtonModule,
     TuiSvgModule,
+    FeatureModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
