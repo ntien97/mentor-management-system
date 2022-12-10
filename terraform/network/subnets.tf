@@ -63,3 +63,11 @@ resource "aws_subnet" "datastore-2" {
     Name = "subnet-datastore-2"
   }
 }
+
+resource "aws_db_subnet_group" "datastore" {
+  name       = "mms"
+  subnet_ids = [aws_subnet.datastore-1.id, aws_subnet.datastore-2.id]
+  tags = {
+    Name = "datastore-db-subnet-group"
+  }
+}

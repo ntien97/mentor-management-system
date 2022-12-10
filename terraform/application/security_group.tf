@@ -32,7 +32,6 @@ resource "aws_security_group" "mms_app_alb" {
   vpc_id      = var.vpc_id
 
   # todo: who can access alb
-
   egress {
     from_port   = 0
     to_port     = 0

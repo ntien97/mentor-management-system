@@ -32,5 +32,8 @@ module "application" {
 }
 
 module "datastore" {
-  source = "./datastore"
+  source              = "./datastore"
+  db_subnet_group     = module.network.db_subnet_group
+  vpc_id              = module.network.vpc_id
+  application_tier_sg = module.application.application_tier_sg
 }
