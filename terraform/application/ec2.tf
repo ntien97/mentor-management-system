@@ -42,11 +42,13 @@ resource "aws_launch_template" "mms_app" {
     arn = aws_iam_instance_profile.mms_app.arn
   }
 
-  instance_type = "t2.nano"
+  instance_type = "t2.micro"
   image_id      = data.aws_ami.amazon_linux_2.id
 
+  key_name = "tien"
+
   network_interfaces {
-    associate_public_ip_address = false
+    associate_public_ip_address = true
     security_groups             = [aws_security_group.mms_app.id]
   }
 

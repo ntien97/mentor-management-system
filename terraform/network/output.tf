@@ -3,7 +3,8 @@ output "vpc_id" {
 }
 
 output "private_subnets" {
-  value = [aws_subnet.private-1.id, aws_subnet.private-2.id]
+  // todo: change back to private
+  value = [aws_subnet.public-1.id, aws_subnet.public-2.id]
 }
 
 output "db_subnet_group" {
