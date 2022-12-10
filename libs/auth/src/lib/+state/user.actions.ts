@@ -1,9 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { LoginPayload, User } from '@mentor-management-system/util';
 
+export const checkLocalToken = createAction('[User] Check Local Token');
 export const loadUserSuccess = createAction(
   '[User/API] Load User Success',
-  props<{ user: User }>()
+  props<{ user: User | null; token: string | null }>()
 );
 
 export const loadUserFailure = createAction(

@@ -7,11 +7,22 @@ import { LoginPayload, User } from '@mentor-management-system/util';
   providedIn: 'root',
 })
 export class AuthService {
+  static readonly TOKEN = 'token';
+
   constructor(private readonly http: HttpClient) {}
 
-  login(payload: LoginPayload): Observable<User> {
+  checkToken(): Observable<{ token: string | null }> {
+    const token = localStorage.getItem(AuthService.TOKEN);
+
+    return of({ token });
+  }
+
+  login(payload: LoginPayload): Observable<{ user: User; token: string }> {
     console.log(payload);
     // return this.http.post("/api/auth/login", payload);
-    return of({ name: 'Tien', id: 'OMG' });
+
+    //todo: check this
+    localStorage.setItem(AuthService.TOKEN, 'TOKEN');
+    return of({ user: { name: 'Tien', id: 'OMG' }, token: 'TOKEN' });
   }
 }

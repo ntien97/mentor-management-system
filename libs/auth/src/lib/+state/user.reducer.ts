@@ -7,12 +7,15 @@ export interface UserState {
   loaded: boolean;
   user: User | null;
   error: Error | null;
+
+  token: string | null;
 }
 
 export const initialUserState: UserState = {
   loaded: false,
   user: null,
   error: null,
+  token: null,
 };
 
 const reducer = createReducer(
@@ -22,9 +25,10 @@ const reducer = createReducer(
     loaded: false,
     error: null,
   })),
-  on(UserActions.loadUserSuccess, (state, { user }) => ({
+  on(UserActions.loadUserSuccess, (state, { user, token }) => ({
     ...state,
     user,
+    token,
   })),
   on(UserActions.loadUserFailure, (state, { error }) => ({ ...state, error }))
 );

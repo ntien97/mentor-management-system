@@ -17,8 +17,12 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AuthModule } from '@mentor-management-system/auth';
-import { LoginComponent } from '../../../../libs/auth/src/lib/components/login/login.component';
+import {
+  AuthModule,
+  IsLoggedInGuard,
+  LoginComponent,
+} from '@mentor-management-system/auth';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, DashboardComponent],
@@ -35,8 +39,14 @@ import { LoginComponent } from '../../../../libs/auth/src/lib/components/login/l
     FeatureModule,
     StoreModule.forRoot(),
     EffectsModule.forRoot(),
+    // TODO: Remove this when in different environment
+    StoreDevtoolsModule.instrument(),
     RouterModule.forRoot([
-      { path: 'dashboard', component: DashboardComponent },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [IsLoggedInGuard],
+      },
       { path: 'login', component: LoginComponent },
       { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },

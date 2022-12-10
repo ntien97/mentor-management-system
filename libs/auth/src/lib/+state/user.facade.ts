@@ -10,6 +10,8 @@ export class UserFacade {
 
   loaded$ = this.store.pipe(select(UserSelectors.selectLoaded));
 
+  isLogin$ = this.store.pipe(select(UserSelectors.selectLoginState));
+
   login(payload: { email: string; password: string }) {
     this.store.dispatch(UserActions.login(payload));
   }
