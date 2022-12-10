@@ -11,17 +11,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { DataAccessModule } from '@mentor-management-system/data-access';
 import { HttpClientModule } from '@angular/common/http';
 import { FeatureModule } from '@mentor-management-system/feature';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    // TODO: maybe remove & use store instead
-    DataAccessModule,
     HttpClientModule,
     TuiRootModule,
     TuiDialogModule,
@@ -29,6 +28,8 @@ import { FeatureModule } from '@mentor-management-system/feature';
     TuiButtonModule,
     TuiSvgModule,
     FeatureModule,
+    StoreModule.forRoot(),
+    EffectsModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

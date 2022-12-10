@@ -1,1 +1,10 @@
-<p>mentor-list works!</p>
+<div
+  *ngFor="
+    let mentor of mentorFacade.mentors$ | async;
+    trackBy: utils.trackByMentor
+  "
+>
+  <h4>{{ mentor.id }}</h4>
+  <h4>{{ mentor.name }}</h4>
+  <h4>{{ mentor.age }}</h4>
+</div>

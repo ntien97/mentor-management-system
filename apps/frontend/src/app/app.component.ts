@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MentorService } from '@mentor-management-system/data-access';
 
 @Component({
   selector: 'mentor-management-system-root',
@@ -7,7 +6,5 @@ import { MentorService } from '@mentor-management-system/data-access';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(public readonly mentorService: MentorService) {
-    this.mentorService.getMentors().subscribe();
-  }
+  constructor() {}
 }
