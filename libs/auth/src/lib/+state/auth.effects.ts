@@ -2,30 +2,30 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { fetch } from '@nrwl/angular';
 
-import * as UserActions from './user.actions';
+import * as AuthActions from './auth.actions';
 import { AuthService } from '../services/auth.service';
 import { map, switchMap } from 'rxjs';
 import { Action } from '@ngrx/store';
 import { Router } from '@angular/router';
 
 @Injectable()
-export class UserEffects implements OnInitEffects {
+export class AuthEffects implements OnInitEffects {
   login$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(UserActions.login),
+      ofType(AuthActions.login),
       fetch({
         run: ({ payload, returnUrl }) => {
           // Your custom service 'load' logic goes here. For now just return a success action...
           return this.authService.login(payload).pipe(
             map(({ user, token }) => {
               this.router.navigate([returnUrl || '/']);
-              return UserActions.loadUserSuccess({ user, token });
+              return AuthActions.loadAuthSuccess({ user, token });
             })
           );
         },
         onError: (action, error) => {
           console.error('Error', error);
-          return UserActions.loadUserFailure({ error });
+          return AuthActions.loadAuthFailure({ error });
         },
       })
     )
@@ -33,14 +33,14 @@ export class UserEffects implements OnInitEffects {
 
   checkLocalToken$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(UserActions.checkLocalToken),
+      ofType(AuthActions.checkLocalToken),
       fetch({
         run: () =>
           this.authService
             .checkToken()
             .pipe(
-              map(({ token }) =>
-                UserActions.loadUserSuccess({ user: null, token })
+              map(({ token, user }) =>
+                AuthActions.loadAuthSuccess({ user, token })
               )
             ),
       })
@@ -50,7 +50,7 @@ export class UserEffects implements OnInitEffects {
   logout$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(UserActions.logout),
+        ofType(AuthActions.logout),
         switchMap(() => this.authService.logout()),
         map((loggedOut) => loggedOut && this.router.navigate(['/login']))
       ),
@@ -65,6 +65,6 @@ export class UserEffects implements OnInitEffects {
   ) {}
 
   ngrxOnInitEffects(): Action {
-    return UserActions.checkLocalToken();
+    return AuthActions.checkLocalToken();
   }
 }

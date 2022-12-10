@@ -1,6 +1,9 @@
-export interface User {
+export interface IUser {
+  readonly id: number;
   readonly email: string;
-  readonly name: string;
+  readonly firstName: string;
+  readonly lastName: string;
+  readonly role: UserRole;
 }
 
 export enum UserRole {

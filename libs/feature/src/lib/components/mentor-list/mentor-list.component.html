@@ -1,10 +1,11 @@
 <div
   *ngFor="
-    let mentor of mentorFacade.mentors$ | async;
+    let mentor of userFacade.mentors$ | async;
     trackBy: utils.trackByMentor
   "
 >
   <h4>{{ mentor.id }}</h4>
-  <h4>{{ mentor.name }}</h4>
-  <h4>{{ mentor.age }}</h4>
+  <h4>{{ mentor.email }}</h4>
+  <h4>{{ mentor.firstName }}</h4>
+  <h4>{{ mentor.lastName }}</h4>
 </div>

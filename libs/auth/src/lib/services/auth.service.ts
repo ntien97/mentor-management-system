@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, tap } from 'rxjs';
-import { LoginPayload, User } from '@mentor-management-system/util';
+import { IUser, LoginPayload } from '@mentor-management-system/util';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -17,22 +17,26 @@ export class AuthService {
     private readonly router: Router
   ) {}
 
-  getToken(): string | null {
-    return localStorage.getItem(AuthService.TOKEN);
+  getToken(): string | undefined {
+    return localStorage.getItem(AuthService.TOKEN) || undefined;
   }
 
-  checkToken(): Observable<{ token: string | null }> {
+  getUserMetadata(): IUser | undefined {
+    const userStr = localStorage.getItem(AuthService.USER_METADATA);
+
+    return userStr ? (JSON.parse(userStr) as IUser) : undefined;
+  }
+
+  checkToken(): Observable<{ token?: string; user?: IUser }> {
     const token = this.getToken();
-    const user = localStorage.getItem(AuthService.USER_METADATA);
+    const user = this.getUserMetadata();
 
-    return of({ token, ...(user && { user: JSON.parse(user) }) });
+    return of({ token, user });
   }
 
-  login(payload: LoginPayload): Observable<{ user: User; token: string }> {
-    console.log(payload);
-
+  login(payload: LoginPayload): Observable<{ user: IUser; token: string }> {
     return this.http
-      .post<{ user: User; token: string }>('api/auth/login', payload)
+      .post<{ user: IUser; token: string }>('api/auth/login', payload)
       .pipe(tap(this.saveData));
   }
 
@@ -42,7 +46,7 @@ export class AuthService {
     return of(true);
   }
 
-  private saveData = (payload: { user: User; token: string }) => {
+  private saveData = (payload: { user: IUser; token: string }) => {
     localStorage.setItem(AuthService.TOKEN, payload.token);
     localStorage.setItem(
       AuthService.USER_METADATA,

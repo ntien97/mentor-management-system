@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserFacade } from '../../+state/user.facade';
+import { AuthFacade } from '../../+state/auth.facade';
 
 @Component({
   selector: 'mentor-management-system-logout-button',
@@ -7,5 +7,5 @@ import { UserFacade } from '../../+state/user.facade';
   styleUrls: ['./logout-button.component.scss'],
 })
 export class LogoutButtonComponent {
-  constructor(readonly userFacade: UserFacade) {}
+  constructor(readonly authFacade: AuthFacade) {}
 }

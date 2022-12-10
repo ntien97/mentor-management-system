@@ -28,7 +28,7 @@ export class TokenInterceptor implements HttpInterceptor {
     }
   }
 
-  private createBearerHeader(token: string | null) {
+  private createBearerHeader(token?: string) {
     return {
       ...(token && { Authorization: 'Bearer ' + token }),
     };

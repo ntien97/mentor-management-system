@@ -1,4 +1,4 @@
-import { userFeature } from './user.reducer';
+import { userFeature } from './auth.reducer';
 import { createSelector } from '@ngrx/store';
 
 export const { selectLoaded, selectToken } = userFeature;

@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 import { IUser } from '@mentor-management-system/util';
 
 @Injectable()
-export class MentorService {
+export class StudentService {
   constructor(private readonly http: HttpClient) {}
 
-  public getMentors(): Observable<IUser[]> {
-    return this.http.get<IUser[]>('/api/mentors');
+  public getStudents(): Observable<IUser[]> {
+    return this.http.get<IUser[]>('/api/students');
   }
 }

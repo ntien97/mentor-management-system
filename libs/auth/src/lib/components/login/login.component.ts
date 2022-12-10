@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserFacade } from '../../+state/user.facade';
+import { AuthFacade } from '../../+state/auth.facade';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -15,7 +15,7 @@ export class LoginComponent {
   });
 
   constructor(
-    private readonly userFacade: UserFacade,
+    private readonly authFacade: AuthFacade,
     private readonly activatedRoute: ActivatedRoute
   ) {}
 
@@ -27,7 +27,7 @@ export class LoginComponent {
 
   login() {
     // todo: consider this form value
-    this.userFacade.login({
+    this.authFacade.login({
       email: this.loginForm.value.email || '',
       password: this.loginForm.value.password || '',
     });

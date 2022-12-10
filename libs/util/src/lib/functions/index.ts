@@ -1,1 +1,1 @@
-export * from './mentor';
+export * from './user';

@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { UserRole } from '@mentor-management-system/util';
+import { IUser, UserRole } from '@mentor-management-system/util';
 
 @Entity()
-export class User {
+export class User implements IUser {
   @PrimaryGeneratedColumn()
   id: number;
 

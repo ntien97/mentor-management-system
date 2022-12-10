@@ -10,9 +10,9 @@ import { TuiButtonModule } from '@taiga-ui/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { userFeature } from './+state/user.reducer';
-import { UserEffects } from './+state/user.effects';
-import { UserFacade } from './+state/user.facade';
+import { userFeature } from './+state/auth.reducer';
+import { AuthEffects } from './+state/auth.effects';
+import { AuthFacade } from './+state/auth.facade';
 import { IsLoggedInGuard } from './guards/is-logged-in.guard';
 import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
 
@@ -25,10 +25,10 @@ import { LogoutButtonComponent } from './components/logout-button/logout-button.
     TuiInputModule,
     TuiInputPasswordModule,
     StoreModule.forFeature(userFeature),
-    EffectsModule.forFeature([UserEffects]),
+    EffectsModule.forFeature([AuthEffects]),
   ],
   declarations: [LoginComponent, LogoutButtonComponent],
   exports: [LoginComponent, LogoutButtonComponent],
-  providers: [UserFacade, IsLoggedInGuard],
+  providers: [AuthFacade, IsLoggedInGuard],
 })
 export class AuthModule {}

@@ -6,7 +6,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable, of, switchMap } from 'rxjs';
-import { UserFacade } from '../+state/user.facade';
+import { AuthFacade } from '../+state/auth.facade';
 import { Injectable } from '@angular/core';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 
@@ -14,7 +14,7 @@ import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 export class IsLoggedInGuard implements CanActivate {
   constructor(
     private readonly router: Router,
-    private readonly userFacade: UserFacade
+    private readonly userFacade: AuthFacade
   ) {}
 
   canActivate(
