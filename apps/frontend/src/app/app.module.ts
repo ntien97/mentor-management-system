@@ -11,7 +11,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FeatureModule } from '@mentor-management-system/feature';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -21,6 +21,7 @@ import {
   AuthModule,
   IsLoggedInGuard,
   LoginComponent,
+  TokenInterceptor,
 } from '@mentor-management-system/auth';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
@@ -52,7 +53,13 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     ]),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

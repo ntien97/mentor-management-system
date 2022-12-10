@@ -17,8 +17,12 @@ export class AuthService {
     private readonly router: Router
   ) {}
 
+  getToken(): string | null {
+    return localStorage.getItem(AuthService.TOKEN);
+  }
+
   checkToken(): Observable<{ token: string | null }> {
-    const token = localStorage.getItem(AuthService.TOKEN);
+    const token = this.getToken();
     const user = localStorage.getItem(AuthService.USER_METADATA);
 
     return of({ token, ...(user && { user: JSON.parse(user) }) });
