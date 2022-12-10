@@ -16,7 +16,6 @@ import { FeatureModule } from '@mentor-management-system/feature';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import {
   AuthModule,
   IsLoggedInGuard,
@@ -26,7 +25,7 @@ import {
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, DashboardComponent],
+  declarations: [AppComponent, HeaderComponent],
   imports: [
     AuthModule,
     BrowserModule,
@@ -44,13 +43,16 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     StoreDevtoolsModule.instrument(),
     RouterModule.forRoot([
       {
-        path: 'dashboard',
-        component: DashboardComponent,
+        path: 'mentor-management',
+        loadChildren: () =>
+          import('@mentor-management-system/feature').then(
+            (module) => module.FeatureModule
+          ),
         canActivate: [IsLoggedInGuard],
       },
       { path: 'login', component: LoginComponent },
-      { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+      { path: '**', redirectTo: '/mentor-management', pathMatch: 'full' },
+      { path: '', redirectTo: '/mentor-management', pathMatch: 'full' },
     ]),
   ],
   providers: [

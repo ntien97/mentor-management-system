@@ -1,0 +1,7 @@
+<tui-island [hoverable]="true">
+  <p class="tui-island__category">{{ user.email }}</p>
+  <h3 class="tui-island__title">{{ user.firstName }} {{ user.lastName }}</h3>
+  <p class="tui-island__paragraph tui-island__paragraph_link">
+    <a href="mailto:{{ user.email }}" tuiLink> Link </a>
+  </p>
+</tui-island>

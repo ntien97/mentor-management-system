@@ -12,7 +12,7 @@ import { jwtConstant } from './jwt-constant';
     PassportModule,
     JwtModule.register({
       secret: jwtConstant.secret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '12h' },
     }),
   ],
   providers: [AuthService, JwtStrategy],

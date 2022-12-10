@@ -1,13 +1,13 @@
 <div class="tui-container tui-container_adaptive tui-space_vertical-4">
-  <span class="tui-text_h4">Mentor List</span>
+  <span class="tui-text_h4">Student List</span>
   <div class="tui-row tui-row_adaptive tui-space_top-2">
     <mentor-management-system-user-card
-      class="tui-col_lg-3 tui-col_md-4 tui-col_xs-6 tui-space_vertical-2"
       *ngFor="
-        let mentor of userFacade.mentors$ | async;
-        trackBy: utils.trackByMentor
+        let student of userFacade.students$ | async;
+        trackBy: utils.trackByStudent
       "
-      [user]="mentor"
+      [user]="student"
+      class="tui-col_lg-3 tui-col_md-4 tui-col_xs-6 tui-space_vertical-2"
     >
     </mentor-management-system-user-card>
   </div>
