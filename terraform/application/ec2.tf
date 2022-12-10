@@ -57,10 +57,9 @@ resource "aws_launch_template" "mms_app" {
     ecr_repo_name     = local.ecr_repo_name
     postgres_host     = var.datastore_address
     postgres_port     = 5432
-    postgres_username = "root"
+    postgres_username = "mms"
     postgres_password = data.aws_ssm_parameter.db_password.value
     jwt_expires_in    = "1h"
     jwt_secret        = data.aws_ssm_parameter.jwt_secret.value
-
   }))
 }

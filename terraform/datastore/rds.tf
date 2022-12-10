@@ -34,6 +34,7 @@ resource "aws_db_instance" "mms-rds" {
   engine                 = "postgres"
   engine_version         = "14.5"
   instance_class         = "db.t3.micro"
+  db_name                = "mms"
   username               = "mms"
   password               = data.aws_ssm_parameter.db_password.value
   skip_final_snapshot    = true
