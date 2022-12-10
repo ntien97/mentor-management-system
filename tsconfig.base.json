@@ -15,7 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@mentor-management-system/data-access": ["libs/data-access/src/index.ts"]
+      "@mentor-management-system/data-access": [
+        "libs/data-access/src/index.ts"
+      ],
+      "@mentor-management-system/util": ["libs/util/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
