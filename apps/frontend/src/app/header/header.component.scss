@@ -1,0 +1,24 @@
+@mixin header-position {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+@mixin header-format {
+  padding: 0 2rem;
+  background: var(--tui-base-01);
+  box-shadow: 0 0.125rem 1rem rgb(0 0 0 / 8%);
+  border-bottom: 1px solid var(--tui-base-03);
+}
+
+:host {
+  @include header-position;
+  @include header-format;
+
+  display: flex;
+  place-content: center space-between;
+  align-items: center;
+  height: 4.5rem;
+}

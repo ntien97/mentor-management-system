@@ -38,7 +38,7 @@
   },
   "generators": {
     "@nrwl/angular:application": {
-      "style": "less",
+      "style": "scss",
       "linter": "eslint",
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress"
@@ -48,7 +48,7 @@
       "unitTestRunner": "jest"
     },
     "@nrwl/angular:component": {
-      "style": "less"
+      "style": "scss"
     }
   },
   "defaultProject": "frontend"
