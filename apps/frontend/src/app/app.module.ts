@@ -1,8 +1,8 @@
 import {
-  TuiRootModule,
-  TuiDialogModule,
   TuiAlertModule,
   TuiButtonModule,
+  TuiDialogModule,
+  TuiRootModule,
   TuiSvgModule,
 } from '@taiga-ui/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -11,12 +11,17 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
+import { DataAccessModule } from '@mentor-management-system/data-access';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    // TODO: maybe remove & use store instead
+    DataAccessModule,
+    HttpClientModule,
     TuiRootModule,
     TuiDialogModule,
     TuiAlertModule,
