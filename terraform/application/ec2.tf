@@ -1,7 +1,17 @@
+# Retrieve current identity
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
+data "aws_ssm_parameter" "db_password" {
+  name = "/mss/database/password"
+}
+data "aws_ssm_parameter" "jwt_secret" {
+  name = "/mss/jwt/secret"
+}
+
 # Retrieve the newest linux 2 HVM AMI
 data "aws_ami" "amazon_linux_2" {
   most_recent = true
-  owners = ["amazon"]
+  owners      = ["amazon"]
   filter {
     name   = "owner-alias"
     values = ["amazon"]
@@ -40,6 +50,15 @@ resource "aws_launch_template" "mms_app" {
     security_groups             = [aws_security_group.mms_app.id]
   }
 
-  # todo: add user data to pull ecr, run task
-  user_data = base64encode(templatefile("${path.module}/user-data/mss_app.sh", {}))
+  user_data = base64encode(templatefile("${path.module}/user-data/mss_app.sh", {
+    ecr_url           = "${data.aws_caller_identity.current.account_id}.dkr.ecr.${data.aws_region.current.name}.amazonaws.com"
+    ecr_repo_name     = local.ecr_repo_name
+    postgres_host     = var.datastore_address
+    postgres_port     = 5432
+    postgres_username = "root"
+    postgres_password = data.aws_ssm_parameter.db_password.value
+    jwt_expires_in    = "1h"
+    jwt_secret        = data.aws_ssm_parameter.jwt_secret.value
+
+  }))
 }

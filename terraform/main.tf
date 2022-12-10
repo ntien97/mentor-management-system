@@ -26,9 +26,10 @@ module "network" {
 }
 
 module "application" {
-  source     = "./application"
-  vpc_id     = module.network.vpc_id
-  subnet_ids = module.network.private_subnets
+  source            = "./application"
+  vpc_id            = module.network.vpc_id
+  subnet_ids        = module.network.private_subnets
+  datastore_address = module.datastore.mss_rds_address
 }
 
 module "datastore" {

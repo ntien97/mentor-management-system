@@ -3,8 +3,6 @@ resource "aws_security_group" "mms_app" {
   description = "Allow HTTP"
   vpc_id      = var.vpc_id
 
-  # todo: consider HTTPs if have ACM
-  # todo: consider the port to serve the backend app
   ingress {
     description     = "HTTP from public subnet"
     from_port       = local.app_port

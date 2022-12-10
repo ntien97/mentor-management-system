@@ -7,6 +7,13 @@ services:
     build:
       context: ../
       dockerfile: Dockerfile
+    environment:
+      POSTGRES_HOST: mms-db
+      POSTGRES_PORT: 5432
+      POSTGRES_USERNAME: root
+      POSTGRES_PASSWORD: root
+      JWT_EXPIRES_IN: 1h
+      JWT_SECRET: secret
     ports:
       - '3000:3000'
   db:

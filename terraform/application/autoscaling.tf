@@ -1,15 +1,15 @@
 resource "aws_autoscaling_group" "app" {
   name                      = "mms-auto-scaling-group-app"
   max_size                  = 4
-  min_size                  = 2
+  min_size                  = 1
   health_check_grace_period = 300
   health_check_type         = "EC2"
-  desired_capacity          = 2
+  desired_capacity          = 1
   vpc_zone_identifier       = var.subnet_ids
 
   launch_template {
     id      = aws_launch_template.mms_app.id
-    version = "$Latest"
+    version = aws_launch_template.mms_app.latest_version
   }
 
   lifecycle {
@@ -20,6 +20,13 @@ resource "aws_autoscaling_group" "app" {
     key                 = "Name"
     value               = "mms-auto-scaling-group-app"
     propagate_at_launch = true
+  }
+
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 50
+    }
   }
 }
 
