@@ -78,10 +78,45 @@ export class UserEffects {
     )
   );
 
+  deleteStudent$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.deleteStudent),
+      fetch({
+        run: ({ id }) =>
+          this.studentService
+            .deleteStudent(id)
+            .pipe(map(() => UserActions.deleteUserSuccess({ id }))),
+        onError: (action, error) => {
+          console.error('Error', error);
+          return UserActions.deleteUserFailure({ error });
+        },
+      })
+    )
+  );
+  deleteMentor$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.deleteMentor),
+      fetch({
+        run: ({ id }) =>
+          this.mentorService
+            .deleteMentor(id)
+            .pipe(map(() => UserActions.deleteUserSuccess({ id }))),
+        onError: (action, error) => {
+          console.error('Error', error);
+          return UserActions.deleteUserFailure({ error });
+        },
+      })
+    )
+  );
+
   onCreateError$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(UserActions.createUserFailure),
+        ofType(
+          UserActions.createUserFailure,
+          UserActions.deleteUserFailure,
+          UserActions.loadUserFailure
+        ),
         httpError(),
         switchMap((error: HttpErrorResponse) =>
           this.alertService.open(

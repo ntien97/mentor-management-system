@@ -5,13 +5,19 @@ import { IUser, UserCreate } from '@mentor-management-system/util';
 
 @Injectable()
 export class StudentService {
+  private static BASE_URL = '/api/students';
+
   constructor(private readonly http: HttpClient) {}
 
   public getStudents(): Observable<IUser[]> {
-    return this.http.get<IUser[]>('/api/students');
+    return this.http.get<IUser[]>(StudentService.BASE_URL);
   }
 
   public createStudent(student: UserCreate): Observable<IUser> {
-    return this.http.post<IUser>('/api/students', student);
+    return this.http.post<IUser>(StudentService.BASE_URL, student);
+  }
+
+  public deleteStudent(id: number): Observable<void> {
+    return this.http.delete<void>(`${StudentService.BASE_URL}/${id}`);
   }
 }

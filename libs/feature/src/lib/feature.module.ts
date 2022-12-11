@@ -9,6 +9,7 @@ import { UserFacade } from './+state/user.facade';
 import { DataAccessModule } from '@mentor-management-system/data-access';
 import { UserCardComponent } from './components/dumb/user-card/user-card.component';
 import {
+  TuiBadgeModule,
   TuiFieldErrorPipeModule,
   TuiInputModule,
   TuiInputPasswordModule,
@@ -16,9 +17,9 @@ import {
 } from '@taiga-ui/kit';
 import {
   TuiButtonModule,
-  TuiColorModule,
   TuiErrorModule,
   TuiHintControllerModule,
+  TuiLabelModule,
   TuiLinkModule,
   TuiSvgModule,
   TuiTextfieldControllerModule,
@@ -28,7 +29,8 @@ import { DashboardComponent } from './shell/dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
 import { AddNewButtonComponent } from './components/dumb/add-new-button/add-new-button.component';
 import { UserDialogComponent } from './components/dumb/user-dialog/user-dialog.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ConfirmDeleteDialogComponent } from './components/dumb/confirm-delete-dialog/confirm-delete-dialog.component';
 
 @NgModule({
   imports: [
@@ -55,6 +57,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TuiHintControllerModule,
     TuiTextfieldControllerModule,
     TuiFieldErrorPipeModule,
+    TuiLabelModule,
+    TuiBadgeModule,
   ],
   declarations: [
     MentorListComponent,
@@ -63,6 +67,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DashboardComponent,
     AddNewButtonComponent,
     UserDialogComponent,
+    ConfirmDeleteDialogComponent,
   ],
   exports: [MentorListComponent],
   providers: [UserFacade],

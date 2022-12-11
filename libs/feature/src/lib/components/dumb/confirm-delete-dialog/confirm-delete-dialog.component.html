@@ -1,0 +1,39 @@
+<div class="tui-row">
+  <div class="tui-col_12">
+    <h3>Confirm delete {{ user.role | lowercase }}?</h3>
+    <div class="tui-space_vertical-1">
+      The following {{ user.role | lowercase }} will be deleted
+    </div>
+    <div class="tui-space_vertical-1">
+      <tui-badge
+        class="tui-space_right-2"
+        status="info"
+        value="Email"
+      ></tui-badge>
+      <code>{{ user.email }}</code>
+    </div>
+    <div class="tui-space_vertical-1">
+      <tui-badge
+        class="tui-space_right-2"
+        status="info"
+        value="Name"
+      ></tui-badge>
+      {{ user.firstName }} {{ user.lastName }}
+    </div>
+    <div [style.float]="'right'">
+      <button
+        (click)="cancel()"
+        appearance="flat"
+        class="tui-space_right-1"
+        size="l"
+        tuiButton
+        type="button"
+      >
+        Cancel
+      </button>
+      <button (click)="submit()" size="l" tuiButton type="button">
+        Submit
+      </button>
+    </div>
+  </div>
+</div>

@@ -24,6 +24,8 @@ const reducer = createReducer(
     UserActions.initStudent,
     UserActions.createStudent,
     UserActions.createMentor,
+    UserActions.deleteStudent,
+    UserActions.deleteMentor,
     (state) => ({
       ...state,
       loaded: false,
@@ -36,9 +38,13 @@ const reducer = createReducer(
   on(UserActions.createUserSuccess, (state, { user }) =>
     userAdapter.upsertOne(user, { ...state, loaded: true })
   ),
+  on(UserActions.deleteUserSuccess, (state, { id }) =>
+    userAdapter.removeOne(id, { ...state, loaded: true })
+  ),
   on(
     UserActions.loadUserFailure,
     UserActions.createUserFailure,
+    UserActions.deleteUserFailure,
     (state, { error }) => ({
       ...state,
       error,

@@ -33,3 +33,23 @@ export const createUserFailure = createAction(
   '[User/API] Create User Failure',
   props<{ error: Error | null }>()
 );
+
+export const deleteStudent = createAction(
+  '[User/API] Delete Student',
+  props<{ id: number }>()
+);
+
+export const deleteMentor = createAction(
+  '[User/API] Delete Mentor',
+  props<{ id: number }>()
+);
+
+export const deleteUserSuccess = createAction(
+  '[User/API] Delete User Success',
+  props<{ id: number }>()
+);
+
+export const deleteUserFailure = createAction(
+  '[User/API] Delete User Failure',
+  props<{ error: Error | null }>()
+);

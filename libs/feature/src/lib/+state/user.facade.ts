@@ -38,4 +38,12 @@ export class UserFacade {
   createMentor(mentor: UserCreate) {
     this.store.dispatch(UserActions.createMentor({ mentor }));
   }
+
+  deleteStudent(id: number) {
+    this.store.dispatch(UserActions.deleteStudent({ id }));
+  }
+
+  deleteMentor(id: number) {
+    this.store.dispatch(UserActions.deleteMentor({ id }));
+  }
 }

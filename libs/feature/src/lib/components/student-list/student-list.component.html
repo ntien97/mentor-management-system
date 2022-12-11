@@ -2,11 +2,12 @@
   <span class="tui-text_h4">Student List</span>
   <div class="tui-row tui-row_adaptive tui-space_top-2">
     <mentor-management-system-add-new-button
-      *ngIf="canEdit"
       (new)="openNewDialog()"
+      *ngIf="canEdit"
       class="tui-col_lg-3 tui-col_md-4 tui-col_xs-6 tui-space_vertical-2"
     ></mentor-management-system-add-new-button>
     <mentor-management-system-user-card
+      (userDelete)="confirmDeleteDialog(student)"
       *ngFor="
         let student of userFacade.students$ | async;
         trackBy: utils.trackByStudent

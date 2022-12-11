@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { IUser } from '@mentor-management-system/util';
+import { TuiAlertService, TuiNotification } from '@taiga-ui/core';
 
 @Component({
   selector: 'mentor-management-system-user-card',
@@ -11,4 +12,18 @@ export class UserCardComponent {
   @Input() canEdit = false;
 
   @Output() userDelete = new EventEmitter<number>();
+
+  constructor(
+    @Inject(TuiAlertService)
+    private readonly alertService: TuiAlertService
+  ) {}
+
+  userEdit() {
+    this.alertService
+      .open('The feature is currently under maintenace', {
+        label: 'Error',
+        status: TuiNotification.Error,
+      })
+      .subscribe();
+  }
 }
