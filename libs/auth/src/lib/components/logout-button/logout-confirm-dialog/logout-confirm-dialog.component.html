@@ -1,0 +1,25 @@
+<div class="tui-row">
+  <div class="tui-col_12">
+    <h3>Logout?</h3>
+    <div [style.float]="'right'">
+      <button
+        (click)="this.context.completeWith(false)"
+        appearance="flat"
+        class="tui-space_right-1"
+        size="l"
+        tuiButton
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="this.context.completeWith(true)"
+        size="l"
+        tuiButton
+        type="button"
+      >
+        Logout
+      </button>
+    </div>
+  </div>
+</div>

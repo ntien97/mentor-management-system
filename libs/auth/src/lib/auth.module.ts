@@ -15,6 +15,7 @@ import { AuthEffects } from './+state/auth.effects';
 import { AuthFacade } from './+state/auth.facade';
 import { IsLoggedInGuard } from './guards/is-logged-in.guard';
 import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
+import { LogoutConfirmDialogComponent } from './components/logout-button/logout-confirm-dialog/logout-confirm-dialog.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,11 @@ import { LogoutButtonComponent } from './components/logout-button/logout-button.
     StoreModule.forFeature(userFeature),
     EffectsModule.forFeature([AuthEffects]),
   ],
-  declarations: [LoginComponent, LogoutButtonComponent],
+  declarations: [
+    LoginComponent,
+    LogoutButtonComponent,
+    LogoutConfirmDialogComponent,
+  ],
   exports: [LoginComponent, LogoutButtonComponent],
   providers: [AuthFacade, IsLoggedInGuard],
 })
