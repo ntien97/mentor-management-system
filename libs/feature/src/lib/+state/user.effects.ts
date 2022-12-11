@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { fetch } from '@nrwl/angular';
 
@@ -7,7 +7,10 @@ import {
   MentorService,
   StudentService,
 } from '@mentor-management-system/data-access';
-import { map } from 'rxjs';
+import { map, switchMap } from 'rxjs';
+import { TuiAlertService, TuiNotification } from '@taiga-ui/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { httpError } from './http-error';
 
 @Injectable()
 export class UserEffects {
@@ -75,9 +78,29 @@ export class UserEffects {
     )
   );
 
+  onCreateError$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(UserActions.createUserFailure),
+        httpError(),
+        switchMap((error: HttpErrorResponse) =>
+          this.alertService.open(
+            error.error?.message || 'Something went wrong!',
+            {
+              label: 'Error',
+              status: TuiNotification.Error,
+            }
+          )
+        )
+      ),
+    { dispatch: false }
+  );
+
   constructor(
     private readonly actions$: Actions,
     private readonly mentorService: MentorService,
-    private readonly studentService: StudentService
+    private readonly studentService: StudentService,
+    @Inject(TuiAlertService)
+    private readonly alertService: TuiAlertService
   ) {}
 }

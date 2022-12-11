@@ -22,7 +22,7 @@ export class StudentListComponent {
     {
       data: {
         type: 'Create',
-        role: UserRole.MENTOR,
+        role: UserRole.STUDENT,
       },
       dismissible: true,
     }

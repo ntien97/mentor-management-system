@@ -2,7 +2,7 @@
   <div class="tui-row tui-row_sme">
     <div class="tui-col_12">
       <h3 class="tui-form__header tui-form__header_margin-top_none">
-        {{ data.type }} {{ role }}
+        {{ data.type | titlecase }} {{ role | lowercase }}
       </h3>
       <div class="tui-form__row">
         <tui-input
