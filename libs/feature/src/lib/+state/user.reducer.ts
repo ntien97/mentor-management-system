@@ -19,18 +19,31 @@ export const initialUserState: UserState = userAdapter.getInitialState({
 
 const reducer = createReducer(
   initialUserState,
-  on(UserActions.initMentor, UserActions.initStudent, (state) => ({
-    ...state,
-    loaded: false,
-    error: null,
-  })),
+  on(
+    UserActions.initMentor,
+    UserActions.initStudent,
+    UserActions.createStudent,
+    UserActions.createMentor,
+    (state) => ({
+      ...state,
+      loaded: false,
+      error: null,
+    })
+  ),
   on(UserActions.loadUserSuccess, (state, { users }) =>
     userAdapter.upsertMany(users, { ...state, loaded: true })
   ),
-  on(UserActions.loadUserFailure, (state, { error }) => ({
-    ...state,
-    error,
-  }))
+  on(UserActions.createUserSuccess, (state, { user }) =>
+    userAdapter.upsertOne(user, { ...state, loaded: true })
+  ),
+  on(
+    UserActions.loadUserFailure,
+    UserActions.createUserFailure,
+    (state, { error }) => ({
+      ...state,
+      error,
+    })
+  )
 );
 
 export const userFeature = createFeature({

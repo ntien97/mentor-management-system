@@ -1,36 +1,33 @@
-import { Component, Inject } from "@angular/core";
-import { TuiDialogContext, TuiDialogService } from "@taiga-ui/core";
-import { POLYMORPHEUS_CONTEXT } from "@tinkoff/ng-polymorpheus";
-import { UserDialogInputType, UserDialogOutputType } from "./user-dialog.type";
-import { IUser, UserRole } from "@mentor-management-system/util";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Component, Inject } from '@angular/core';
+import { TuiDialogContext } from '@taiga-ui/core';
+import { POLYMORPHEUS_CONTEXT } from '@tinkoff/ng-polymorpheus';
+import { UserDialogInputType, UserDialogOutputType } from './user-dialog.type';
+import { IUser, UserCreate, UserRole } from '@mentor-management-system/util';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: "mentor-management-system-user-dialog",
-  templateUrl: "./user-dialog.component.html",
-  styleUrls: ["./user-dialog.component.scss"]
+  selector: 'mentor-management-system-user-dialog',
+  templateUrl: './user-dialog.component.html',
+  styleUrls: ['./user-dialog.component.scss'],
 })
 export class UserDialogComponent {
   userForm = new FormGroup({
-    email: new FormControl<string>("", {
+    email: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required]
+      validators: [Validators.required],
     }),
-    firstName: new FormControl("", {
+    firstName: new FormControl('', {
       nonNullable: true,
-      validators: [
-        Validators.required
-      ]
+      validators: [Validators.required],
     }),
-    lastName: new FormControl("", {
+    lastName: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required]
+      validators: [Validators.required],
     }),
-    password: new FormControl("", {
+    password: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(6)
-      ]
-    })
+      validators: [Validators.required, Validators.minLength(6)],
+    }),
   });
 
   constructor(
@@ -39,15 +36,14 @@ export class UserDialogComponent {
       UserDialogOutputType,
       UserDialogInputType
     >
-  ) {
-  }
+  ) {}
 
   get data(): UserDialogInputType {
     return this.context.data;
   }
 
   get user(): IUser | undefined {
-    if (this.data.type === "edit") {
+    if (this.data.type === 'Edit') {
       return this.data.user;
     }
     return undefined;
@@ -55,9 +51,9 @@ export class UserDialogComponent {
 
   get role(): UserRole {
     switch (this.data.type) {
-      case "create":
+      case 'Create':
         return this.data.role;
-      case "edit":
+      case 'Edit':
         return this.data.user.role;
     }
   }
@@ -66,7 +62,7 @@ export class UserDialogComponent {
     if (!this.userForm.valid) return;
 
     this.context.completeWith({
-      user: this.userForm.value
+      user: this.userForm.value as UserCreate,
     });
   }
 

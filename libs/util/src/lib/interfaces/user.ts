@@ -13,3 +13,10 @@ export enum UserRole {
 
   MENTOR = 'MENTOR',
 }
+
+export abstract class UserCreate implements Omit<IUser, 'id' | 'role'> {
+  abstract readonly password: string;
+  abstract readonly email: string;
+  abstract readonly firstName: string;
+  abstract readonly lastName: string;
+}

@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import * as UserSelectors from './user.selectors';
 import * as UserActions from './user.actions';
-import { UserRole } from '@mentor-management-system/util';
+import { UserCreate, UserRole } from '@mentor-management-system/util';
 
 @Injectable()
 export class UserFacade {
@@ -29,5 +29,13 @@ export class UserFacade {
         this.store.dispatch(UserActions.initMentor());
         break;
     }
+  }
+
+  createStudent(student: UserCreate) {
+    this.store.dispatch(UserActions.createStudent({ student }));
+  }
+
+  createMentor(mentor: UserCreate) {
+    this.store.dispatch(UserActions.createMentor({ mentor }));
   }
 }

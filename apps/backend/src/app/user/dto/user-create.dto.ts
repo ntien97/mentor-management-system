@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator';
-import { IUser } from '@mentor-management-system/util';
+import { UserCreate } from '@mentor-management-system/util';
 
-export class UserCreationDto implements Omit<IUser, 'id' | 'role'> {
+export class UserCreationDto implements UserCreate {
   @IsNotEmpty()
   @IsString()
   readonly email: string;

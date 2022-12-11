@@ -1,18 +1,17 @@
-import { IUser, UserRole } from '@mentor-management-system/util';
+import { IUser, UserCreate, UserRole } from '@mentor-management-system/util';
 
 export type UserDialogInputType =
   | {
-      type: 'edit';
+      type: 'Edit';
       user: IUser;
     }
   | {
-      type: 'create';
+      type: 'Create';
       role: UserRole;
     };
 
 export type UserDialogOutputType =
   | false
   | {
-      // todo: create dto or edit dto
-      user: Partial<IUser>;
+      user: UserCreate;
     };

@@ -2,7 +2,7 @@
   <div class="tui-row tui-row_sme">
     <div class="tui-col_12">
       <h3 class="tui-form__header tui-form__header_margin-top_none">
-        Create new user
+        {{ data.type }} {{ role }}
       </h3>
       <div class="tui-form__row">
         <tui-input
@@ -60,22 +60,22 @@
 
       <div class="tui-form__buttons tui-form__buttons_align_end">
         <button
+          (click)="cancel()"
           appearance="flat"
           class="tui-form__button"
           size="l"
           tuiButton
           type="button"
-          (click)="cancel()"
         >
           Cancel
         </button>
         <button
+          (click)="submit()"
           [disabled]="!userForm.valid"
           class="tui-form__button"
           size="l"
           tuiButton
           type="button"
-          (click)="submit()"
         >
           Submit
         </button>

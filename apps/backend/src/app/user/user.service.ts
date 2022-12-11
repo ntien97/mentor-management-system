@@ -2,8 +2,9 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
-import { UserRole } from '@mentor-management-system/util';
+import { IUser, UserRole } from '@mentor-management-system/util';
 import { HashService } from '../shared';
+import { maskedUser } from './functions/masked-user.function';
 
 @Injectable()
 export class UserService {
@@ -13,12 +14,10 @@ export class UserService {
     private readonly hashService: HashService
   ) {}
 
-  findAll(): Promise<User[]> {
-    return this.usersRepository.find();
-  }
-
-  findAllByRole(role: UserRole): Promise<User[]> {
-    return this.usersRepository.findBy({ role });
+  findAllByRole(role: UserRole): Promise<IUser[]> {
+    return this.usersRepository
+      .findBy({ role })
+      .then((users) => users.map(maskedUser));
   }
 
   findOne(email: string): Promise<User> {
@@ -32,12 +31,14 @@ export class UserService {
   async createNewUser(
     user: Omit<User, 'id' | 'isActive' | 'passwordHash'>,
     password: string
-  ): Promise<void> {
+  ): Promise<IUser> {
     const currentMail = await this.findOne(user.email);
     if (currentMail) {
       throw new HttpException('User existed', HttpStatus.BAD_REQUEST);
     }
     const passwordHash = await this.hashService.hash(password);
-    await this.usersRepository.save({ ...user, passwordHash });
+    return await this.usersRepository
+      .save({ ...user, passwordHash })
+      .then(maskedUser);
   }
 }
