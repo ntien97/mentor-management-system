@@ -9,6 +9,7 @@ import {
 } from './controllers';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         synchronize: true,
       }),
     }),
+    SharedModule,
   ],
   controllers: [MentorController, StudentController, AuthController],
 })
