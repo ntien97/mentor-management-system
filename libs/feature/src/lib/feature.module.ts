@@ -8,17 +8,27 @@ import { UserEffects } from './+state/user.effects';
 import { UserFacade } from './+state/user.facade';
 import { DataAccessModule } from '@mentor-management-system/data-access';
 import { UserCardComponent } from './components/dumb/user-card/user-card.component';
-import { TuiIslandModule } from '@taiga-ui/kit';
+import {
+  TuiFieldErrorPipeModule,
+  TuiInputModule,
+  TuiInputPasswordModule,
+  TuiIslandModule,
+} from '@taiga-ui/kit';
 import {
   TuiButtonModule,
   TuiColorModule,
+  TuiErrorModule,
+  TuiHintControllerModule,
   TuiLinkModule,
   TuiSvgModule,
+  TuiTextfieldControllerModule,
 } from '@taiga-ui/core';
 import { StudentListComponent } from './components/student-list/student-list.component';
 import { DashboardComponent } from './shell/dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
 import { AddNewButtonComponent } from './components/dumb/add-new-button/add-new-button.component';
+import { UserDialogComponent } from './components/dumb/user-dialog/user-dialog.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -38,6 +48,13 @@ import { AddNewButtonComponent } from './components/dumb/add-new-button/add-new-
       },
     ]),
     TuiSvgModule,
+    TuiInputModule,
+    TuiErrorModule,
+    TuiInputPasswordModule,
+    ReactiveFormsModule,
+    TuiHintControllerModule,
+    TuiTextfieldControllerModule,
+    TuiFieldErrorPipeModule,
   ],
   declarations: [
     MentorListComponent,
@@ -45,6 +62,7 @@ import { AddNewButtonComponent } from './components/dumb/add-new-button/add-new-
     StudentListComponent,
     DashboardComponent,
     AddNewButtonComponent,
+    UserDialogComponent,
   ],
   exports: [MentorListComponent],
   providers: [UserFacade],
