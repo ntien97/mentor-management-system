@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -11,6 +13,8 @@ import { JwtAuthGuard } from '../auth';
 import { UserService } from '../user';
 import { UserRole } from '@mentor-management-system/util';
 import { UserCreationDto } from '../user/dto';
+import { IsNumber } from 'class-validator';
+import { UserIdDto } from '../user/dto/user-id.dto';
 
 // TODO: Authorize these when you have time
 @Controller('mentors')
@@ -36,5 +40,12 @@ export class MentorController {
       },
       password
     );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  @HttpCode(HttpStatus.OK)
+  deleteMentor(@Param() { id }: UserIdDto) {
+    return this.userService.remove(id);
   }
 }
