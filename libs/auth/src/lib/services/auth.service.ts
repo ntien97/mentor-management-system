@@ -54,7 +54,7 @@ export class AuthService {
     );
   };
 
-  private clearData = () => {
+  public clearData = () => {
     localStorage.removeItem(AuthService.TOKEN);
     localStorage.removeItem(AuthService.USER_METADATA);
   };

@@ -20,6 +20,7 @@ import {
   AuthModule,
   IsLoggedInGuard,
   LoginComponent,
+  LoginRedirectInterceptor,
   TokenInterceptor,
 } from '@mentor-management-system/auth';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -59,6 +60,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoginRedirectInterceptor,
       multi: true,
     },
   ],
