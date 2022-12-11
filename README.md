@@ -68,7 +68,7 @@ Notable libraries in terms of core features
 
 - [passport-jwt](http://www.passportjs.org/packages/passport-jwt/): generate access tokens
 
-- [bcrypt](https://github.com/kelektiv/node.bcrypt.js): hashing the password
+- [bcryptjs](https://github.com/dcodeIO/bcrypt.js): hashing the password
 
 # AWS Infrastructure
 
