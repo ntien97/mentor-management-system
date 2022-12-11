@@ -1,6 +1,6 @@
 resource "aws_lb" "mss_app" {
   name               = "mss-lb-app"
-  internal           = true
+  internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.mms_app_alb.id]
   subnets            = var.subnet_ids
