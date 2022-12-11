@@ -1,40 +1,48 @@
 <div class="tui-container">
-  <tui-island size="m" textAlign="center">
-    <div class="tui-island__content form">
-      <figure class="tui-island__figure">
-        <div class="some-figure"></div>
-      </figure>
-      <div>
-        <h3 class="tui-island__title">Please login!!!</h3>
+  <div class="tui-row_adaptive tui-row_align_center">
+    <tui-island
+      class="tui-col_lg-6 tui-col_md-8 tui-col_xs-10 tui-space_auto"
+      size="m"
+      textAlign="center"
+    >
+      <div class="tui-island__content form">
+        <figure class="tui-island__figure">
+          <div class="some-figure"></div>
+        </figure>
+        <div>
+          <h3 class="tui-space_vertical-8 tui-text_h4">
+            Mentor Management System
+          </h3>
 
-        <form [formGroup]="loginForm" class="tui-form">
-          <div class="tui-form__row">
-            <tui-input formControlName="email">
-              Email
-              <input tuiTextfield type="email" />
-            </tui-input>
-          </div>
+          <form [formGroup]="loginForm" class="tui-form">
+            <div class="tui-form__row">
+              <tui-input formControlName="email">
+                Email
+                <input tuiTextfield type="email" />
+              </tui-input>
+            </div>
 
-          <div class="tui-form__row">
-            <tui-input-password formControlName="password">
-              Password
-              <input placeholder="Password" tuiTextfield />
-            </tui-input-password>
-          </div>
-        </form>
+            <div class="tui-form__row">
+              <tui-input-password formControlName="password">
+                Password
+                <input placeholder="Password" tuiTextfield />
+              </tui-input-password>
+            </div>
+          </form>
 
-        <button
-          [disabled]="!loginForm.valid"
-          appearance="flat"
-          class="tui-island__footer-button"
-          size="m"
-          tuiButton
-          type="button"
-          (click)="login()"
-        >
-          Login
-        </button>
+          <button
+            (click)="login()"
+            [disabled]="!loginForm.valid"
+            appearance="flat"
+            class="tui-island__footer-button"
+            size="m"
+            tuiButton
+            type="button"
+          >
+            Login
+          </button>
+        </div>
       </div>
-    </div>
-  </tui-island>
+    </tui-island>
+  </div>
 </div>
