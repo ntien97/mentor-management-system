@@ -1,7 +1,28 @@
-<tui-island [hoverable]="true">
+<tui-island [hoverable]="canEdit" class="user-card">
   <p class="tui-island__category">{{ user.email }}</p>
   <h3 class="tui-island__title">{{ user.firstName }} {{ user.lastName }}</h3>
-  <p class="tui-island__paragraph tui-island__paragraph_link">
-    <a href="mailto:{{ user.email }}" tuiLink> Link </a>
+  <p class="tui-island__paragraph tui-island__paragraph_button">
+    <button
+      [disabled]="!canEdit"
+      appearance="secondary"
+      size="xs"
+      tuiButton
+      type="button"
+      (click)="userDelete.emit(user.id)"
+    >
+      Edit
+    </button>
+
+    <button
+      [disabled]="!canEdit"
+      class="tui-space_left-2"
+      appearance="secondary-destructive"
+      size="xs"
+      tuiButton
+      type="button"
+      (click)="userDelete.emit(user.id)"
+    >
+      Delete
+    </button>
   </p>
 </tui-island>

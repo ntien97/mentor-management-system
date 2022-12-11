@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserFacade } from '../../+state/user.facade';
 import { UserRole } from '@mentor-management-system/util';
+import { AuthFacade } from '@mentor-management-system/auth';
 
 @Component({
   selector: 'mentor-management-system-dashboard',
@@ -8,8 +9,14 @@ import { UserRole } from '@mentor-management-system/util';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
-  constructor(public readonly userFacade: UserFacade) {
-    // todo: init by role
+  readonly utils = {
+    UserRole,
+  };
+
+  constructor(
+    public readonly userFacade: UserFacade,
+    readonly authFacade: AuthFacade
+  ) {
     this.userFacade.init(UserRole.SUPER);
   }
 }

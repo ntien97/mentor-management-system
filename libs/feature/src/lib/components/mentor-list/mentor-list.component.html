@@ -1,13 +1,19 @@
 <div class="tui-container tui-container_adaptive tui-space_vertical-4">
   <span class="tui-text_h4">Mentor List</span>
   <div class="tui-row tui-row_adaptive tui-space_top-2">
-    <mentor-management-system-user-card
+    <mentor-management-system-add-new-button
+      *ngIf="canEdit"
+      (new)="onNewMentor()"
       class="tui-col_lg-3 tui-col_md-4 tui-col_xs-6 tui-space_vertical-2"
+    ></mentor-management-system-add-new-button>
+    <mentor-management-system-user-card
       *ngFor="
         let mentor of userFacade.mentors$ | async;
         trackBy: utils.trackByMentor
       "
       [user]="mentor"
+      [canEdit]="canEdit"
+      class="tui-col_lg-3 tui-col_md-4 tui-col_xs-6 tui-space_vertical-2"
     >
     </mentor-management-system-user-card>
   </div>

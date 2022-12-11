@@ -9,10 +9,16 @@ import { UserFacade } from './+state/user.facade';
 import { DataAccessModule } from '@mentor-management-system/data-access';
 import { UserCardComponent } from './components/dumb/user-card/user-card.component';
 import { TuiIslandModule } from '@taiga-ui/kit';
-import { TuiLinkModule } from '@taiga-ui/core';
+import {
+  TuiButtonModule,
+  TuiColorModule,
+  TuiLinkModule,
+  TuiSvgModule,
+} from '@taiga-ui/core';
 import { StudentListComponent } from './components/student-list/student-list.component';
 import { DashboardComponent } from './shell/dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
+import { AddNewButtonComponent } from './components/dumb/add-new-button/add-new-button.component';
 
 @NgModule({
   imports: [
@@ -22,6 +28,7 @@ import { RouterModule } from '@angular/router';
     EffectsModule.forFeature([UserEffects]),
     TuiIslandModule,
     TuiLinkModule,
+    TuiButtonModule,
     RouterModule.forChild([
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
@@ -30,12 +37,14 @@ import { RouterModule } from '@angular/router';
         pathMatch: 'full',
       },
     ]),
+    TuiSvgModule,
   ],
   declarations: [
     MentorListComponent,
     UserCardComponent,
     StudentListComponent,
     DashboardComponent,
+    AddNewButtonComponent,
   ],
   exports: [MentorListComponent],
   providers: [UserFacade],

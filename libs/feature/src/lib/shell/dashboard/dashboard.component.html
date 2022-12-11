@@ -1,6 +1,12 @@
-<mentor-management-system-mentor-list
-  class="tui-space_vertical-4"
-></mentor-management-system-mentor-list>
-<mentor-management-system-student-list
-  class="tui-space_vertical-4"
-></mentor-management-system-student-list>
+<ng-container *ngIf="authFacade.role$ | async as role">
+  <mentor-management-system-mentor-list
+    *ngIf="role === utils.UserRole.SUPER || role === utils.UserRole.STUDENT"
+    [canEdit]="role === utils.UserRole.SUPER"
+    class="tui-space_vertical-4"
+  ></mentor-management-system-mentor-list>
+  <mentor-management-system-student-list
+    *ngIf="role === utils.UserRole.SUPER || role === utils.UserRole.MENTOR"
+    [canEdit]="role === utils.UserRole.SUPER"
+    class="tui-space_vertical-4"
+  ></mentor-management-system-student-list>
+</ng-container>

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { trackByUser, UserRole } from '@mentor-management-system/util';
+import { Component, Input } from '@angular/core';
+import { trackByUser } from '@mentor-management-system/util';
 import { UserFacade } from '../../+state/user.facade';
 
 @Component({
@@ -12,8 +12,7 @@ export class StudentListComponent {
     trackByStudent: trackByUser,
   };
 
-  constructor(public readonly userFacade: UserFacade) {
-    // todo: init by role
-    this.userFacade.init(UserRole.SUPER);
-  }
+  @Input() canEdit = false;
+
+  constructor(public readonly userFacade: UserFacade) {}
 }

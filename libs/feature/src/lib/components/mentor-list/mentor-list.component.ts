@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UserFacade } from '../../+state/user.facade';
-import { trackByUser, UserRole } from '@mentor-management-system/util';
+import { trackByUser } from '@mentor-management-system/util';
 
 @Component({
   selector: 'mentor-management-system-mentor-list',
@@ -12,8 +12,11 @@ export class MentorListComponent {
     trackByMentor: trackByUser,
   };
 
-  constructor(public readonly userFacade: UserFacade) {
-    // todo: init by role
-    this.userFacade.init(UserRole.SUPER);
+  @Input() canEdit = false;
+
+  constructor(public readonly userFacade: UserFacade) {}
+
+  onNewMentor() {
+    throw new Error('not implemented yet');
   }
 }
